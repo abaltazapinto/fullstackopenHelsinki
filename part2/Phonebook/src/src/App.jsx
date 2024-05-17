@@ -8,10 +8,11 @@ import Filter from './Filter';
 const baseUrl = 'http://localhost:3005/persons';
 
 const App = () => {
-  const [persons, setPersons] = useState([{ name: 'Arto Hellas', number: '917624721' }]);
+  const [persons, setPersons] = useState(['']);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [search, setSearch] = useState('');
+  const [notification, setNotification] = useState(null)
 
   // Fetching data from the server
   useEffect(() => {
@@ -22,6 +23,14 @@ const App = () => {
       .catch(error => 
       console.error('Error fetching data:', error));
   }, []);
+
+  const showNotification = (message, type = 'success') => {
+    setNotification({ message, type });
+    setTimeout(() => {
+      setNotification(null)
+    }, 5000)
+  
+  }
 
 
   const handleNumberChange = (event) => setNewNumber(event.target.value);
@@ -57,8 +66,10 @@ const deletePerson = id => {
     axios.delete(`${baseUrl}/${id}`)
       .then(response => {
         setPersons(persons.filter(person => person.id !== id));
+        showNotification('Deleted sucessfuly')
       })
-      .catch(erros => console.error('Error deleting person', error));
+      .catch(error => console.error('Error deleting person', error));
+      showNotification(`The person was already deleted by another user`, 'error');
   }
 };
    //find persons
@@ -69,9 +80,9 @@ const deletePerson = id => {
   return (
         
       <div>
-        <h2>
-        Phonebook
-        </h2>
+        
+        <h2>Phonebook</h2>
+        {notification && <div style={{ color: notification.type === 'success' ? 'green' : 'red' }}>{notification.message}</div>}
         <Filter value={search} onChange={handleSearchChange}/>
         <h3>Add a new</h3>
         <PersonForm
