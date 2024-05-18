@@ -36,22 +36,39 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
+  border-radius: 1px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  padding: .2em ;
+  font-size: 09px;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  font-family: 'Times New Roman', Times, serif;
+  color: red;
+  background-color: lightblue ;
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+.addbutton {
+  border-radius: 1px;
+  border: 1px solid transparent;
+  padding: .2em ;
+  font-size: 09px;
+  font-weight: 500;
+  font-family: 'Times New Roman', Times, serif;
+  color: blue;
+  background-color: lightblue ;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+
 button:hover {
   border-color: #646cff;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+  color: blue
 }
 
 @media (prefers-color-scheme: light) {
@@ -65,4 +82,26 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+
+/* notifications */
+.notification {
+  padding: 10px;
+  margin: 20px 0;
+  border: 1px solid;
+  border-radius: 5px;
+  color:greenyellow
+}
+
+.notification.success {
+  color: green;
+  background-color: #D4EDDA; /* light green background */
+  border-color: #C3E6CB;
+}
+
+.notification.error {
+  color: red;
+  background-color: #F8D7DA; /* light red background */
+  border-color: #F5C6CB;
 }
