@@ -6,4 +6,4 @@ We will be building our backend on tope of **Node.JS**, which is a Javascript ru
 
 ....
 
-As i mentioned in part1, browsers don't yet support the newest features of Javascript, and that why is the code running in the browser must be transpiled with e.g. <u>babel</u>
+As i mentioned in part1, browsers don't yet support the newest features of Javascript, and that why is the code running in the browser must be transpiled with e.g. <ins>>babel</ins>
