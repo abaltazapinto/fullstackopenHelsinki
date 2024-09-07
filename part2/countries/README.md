@@ -6,25 +6,26 @@ It seems like the temperature might not be displaying correctly due to an issue 
 
 ```javascript
 import axios from "axios";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 function App() {
   const [countries, setCountries] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [showCountry, setShowCountry] = useState(null);
   const [weather, setWeather] = useState(null);
 
-  const apikey = 'YOUR_WEATHERAPI_KEY'; // Replace with your WeatherAPI key
+  const apikey = "YOUR_WEATHERAPI_KEY"; // Replace with your WeatherAPI key
 
   useEffect(() => {
-    axios.get('https://studies.cs.helsinki.fi/restcountries/api/all')
-      .then(response => {
+    axios
+      .get("https://studies.cs.helsinki.fi/restcountries/api/all")
+      .then((response) => {
         setCountries(response.data);
         setFilteredCountries(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching data from the API', error);
+      .catch((error) => {
+        console.error("Error fetching data from the API", error);
       });
   }, []);
 
@@ -36,18 +37,19 @@ function App() {
 
   const fetchWeather = (capital) => {
     const url = `https://api.weatherapi.com/v1/current.json?key=${apikey}&q=${capital}`;
-    axios.get(url)
-      .then(response => {
+    axios
+      .get(url)
+      .then((response) => {
         setWeather(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching weather data from the API', error);
+      .catch((error) => {
+        console.error("Error fetching weather data from the API", error);
       });
   };
 
   useEffect(() => {
-    const results = countries.filter(country =>
-      country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
+    const results = countries.filter((country) =>
+      country.name.common.toLowerCase().includes(searchTerm.toLowerCase()),
     );
     setFilteredCountries(results);
   }, [searchTerm, countries]);
@@ -73,7 +75,7 @@ function App() {
         <p>Too many matches, specify another filter</p>
       ) : (
         <ul>
-          {filteredCountries.map(country => (
+          {filteredCountries.map((country) => (
             <li key={country.cca3}>
               {country.name.common}
               <button onClick={() => handleShowDetails(country)}>Show</button>
@@ -86,14 +88,25 @@ function App() {
                     ))}
                   </ul>
                   <p>Flag:</p>
-                  <img src={country.flags.png} alt={country.name.common} width="100" height="50" />
+                  <img
+                    src={country.flags.png}
+                    alt={country.name.common}
+                    width="100"
+                    height="50"
+                  />
                   {weather && weather.current && (
                     <div>
                       <h3>Weather in {showCountry.capital[0]}</h3>
                       <p>Temperature: {weather.current.temp_c}°C</p>
                       <p>Weather: {weather.current.condition.text}</p>
-                      <p>Wind: {weather.current.wind_kph} kph direction {weather.current.wind_dir}</p>
-                      <img src={weather.current.condition.icon} alt={weather.current.condition.text} />
+                      <p>
+                        Wind: {weather.current.wind_kph} kph direction{" "}
+                        {weather.current.wind_dir}
+                      </p>
+                      <img
+                        src={weather.current.condition.icon}
+                        alt={weather.current.condition.text}
+                      />
                     </div>
                   )}
                 </div>
@@ -121,10 +134,7 @@ This should display the temperature correctly along with the other weather detai
 console.log(response.data);
 ```
 
-
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-
 
 to know more . https://chatgpt.com/share/6fdfc96f-8bbf-40e1-8027-0da95d2d1e6b
 

@@ -38,12 +38,12 @@ h1 {
 button {
   border-radius: 1px;
   border: 1px solid transparent;
-  padding: .2em ;
+  padding: 0.2em;
   font-size: 09px;
   font-weight: 500;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
   color: red;
-  background-color: lightblue ;
+  background-color: lightblue;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -51,16 +51,15 @@ button {
 .addbutton {
   border-radius: 1px;
   border: 1px solid transparent;
-  padding: .2em ;
+  padding: 0.2em;
   font-size: 09px;
   font-weight: 500;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
   color: blue;
-  background-color: lightblue ;
+  background-color: lightblue;
   cursor: pointer;
   transition: border-color 0.25s;
 }
-
 
 button:hover {
   border-color: #646cff;
@@ -68,7 +67,7 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-  color: blue
+  color: blue;
 }
 
 @media (prefers-color-scheme: light) {
@@ -84,24 +83,23 @@ button:focus-visible {
   }
 }
 
-
 /* notifications */
 .notification {
   padding: 10px;
   margin: 20px 0;
   border: 1px solid;
   border-radius: 5px;
-  color:greenyellow
+  color: greenyellow;
 }
 
 .notification.success {
   color: green;
-  background-color: #D4EDDA; /* light green background */
-  border-color: #C3E6CB;
+  background-color: #d4edda; /* light green background */
+  border-color: #c3e6cb;
 }
 
 .notification.error {
   color: red;
-  background-color: #F8D7DA; /* light red background */
-  border-color: #F5C6CB;
+  background-color: #f8d7da; /* light red background */
+  border-color: #f5c6cb;
 }

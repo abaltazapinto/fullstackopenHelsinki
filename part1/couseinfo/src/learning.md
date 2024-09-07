@@ -57,9 +57,8 @@ return (
 
 ```
 
-
 NB export at the bottom is left out in these examples, now and in the future. It is still needed for the code to work.
 
 Writing component with React is easy, and by combining componen ts, even a more complex application can be kept fairly maintainable. Indeed, a core philosophy of React is composing applications from many specialized reusable components,
 
-Another strong convention is the idea of a *root component called* Appat the top of the component tree of the application. Nevertheless, as we will learn in part 06 there are situations wher the component *App* is not exactly the root, but is wrapped within an appropriate utility component.
+Another strong convention is the idea of a _root component called_ Appat the top of the component tree of the application. Nevertheless, as we will learn in part 06 there are situations wher the component _App_ is not exactly the root, but is wrapped within an appropriate utility component.
