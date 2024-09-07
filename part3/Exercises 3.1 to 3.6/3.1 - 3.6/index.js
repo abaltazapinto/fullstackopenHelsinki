@@ -19,8 +19,8 @@ app.use((req,res, next) => {
 
 // GET all phones to the mponitor
 
-app.get('/api/persons', (request, response) => {
-    response.json(persons)
+app.get('/api/persons', (req, res) => {
+    res.json(persons)
 })
 
 app.get('/', (req, res) => {
@@ -28,15 +28,44 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/persons', (req, res) => {
-    const body = request.body;
-    if (!body.content) {
-        return response.status(400).json({
-            error: 'Content missing'
-        })
-    }
-})
+    const body = req.body;
+    console.log(body)
 
-app.get('/api/info', (req, res) => {
+    // if (!body.name || !body.number) {
+    //     return res.status(400).json({
+    //         error: 'Name or number missing'
+    //     })
+    // }
+
+    const nameExists = persons.some(person => person.name === body.name);
+    console.log("name exists",nameExists)
+    if (nameExists) {
+        return res.status(400).json({
+            error: 'Name must be unique'
+        });
+    }
+
+    const numberExists = persons.some(person => person.number === body.number);
+    console.log("number exists",numberExists)
+    if (numberExists) {
+        return res.status(400).json({
+            error: 'Number must be unique'
+        });
+    }
+
+    //create a new person
+    const newPerson = {
+        id: Math.max(...persons.map(person => person.id)) + 1, // Generate a new ID
+        name: body.name,
+        number: body.number
+      };
+
+    persons.concat(newPerson)
+
+    res.json(newPerson)
+});
+
+app.get('/info', (req, res) => {
     const date = new Date();
     res.send(`<p>Phonebook has info for ${persons.length} people </p><br/>
         <p>${date}</p>`)    
@@ -45,7 +74,7 @@ app.get('/api/info', (req, res) => {
 app.get('/api/persons/:id', (req, res) => {
     
     const person = persons.find(p => p.id === parseInt(req.params.id));
-    console.log(`GET request for person with id: ${req.params.id}`);
+    console.log(`GET req for person with id: ${req.params.id}`);
     if(person) {
         res.json(person);
     } else {
@@ -62,4 +91,4 @@ app.delete('api/persons/id', (req, res,) => {
 
 const PORT = 3015;
 app.listen(PORT);
-console.log(`Server running on port ${PORT} with the notes`)
+console.log(`Server running on port ${PORT} with the persons`)
