@@ -1,5 +1,9 @@
 const express = require('express');
+const morgan = require('morgan');
+const morganBody = require('morgan-body')
+
 const app = express();
+morganBody(app);
 
 let persons = [
     { id: 1, name: 'John Doe', "number": "040-123456" },
@@ -10,6 +14,19 @@ let persons = [
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
+
+// Custom token to log POST body data
+morgan.token('body', (req) => {
+    return req.method === 'POST' ? JSON.stringify(req.body) : '';
+});
+
+//morgan
+app.use(morgan('tiny'));
+
+
+// Use morgan with the new 'body' token
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
+
 
 // Log each reques to the console
 app.use((req,res, next) => {
@@ -60,7 +77,7 @@ app.post('/api/persons', (req, res) => {
         number: body.number
       };
 
-    persons.concat(newPerson)
+    persons = persons.concat(newPerson)
 
     res.json(newPerson)
 });
@@ -91,4 +108,4 @@ app.delete('api/persons/id', (req, res,) => {
 
 const PORT = 3015;
 app.listen(PORT);
-console.log(`Server running on port ${PORT} with the persons`)
+console.log(`Server running on port ${PORT} with the persons, exercise 3.7 to 3.8`)
