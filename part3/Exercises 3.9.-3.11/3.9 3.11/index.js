@@ -78,6 +78,8 @@ app.post('/api/persons', (req, res) => {
       };
 
     persons = persons.concat(newPerson)
+    console.log('New person added', newPerson);
+    console.log('Current persons:', persons);
 
     res.json(newPerson)
 });
@@ -99,10 +101,21 @@ app.get('/api/persons/:id', (req, res) => {
     }
 })
 
-// Delete a person by id
-app.delete('api/persons/id', (req, res,) => {
-    const id = Number(req.query.id);
-    persons = persons.filter(p => p.id!== id);
+app.delete('/api/persons/:id', (req, res) => {
+    const id = Number(req.params.id);
+    console.log(`${req.method} request to ${req.url}`);
+    console.log('Type of id:', typeof id);
+    console.log('Attempting to delete person with id:', id);
+    console.log('Person array before deletion:', persons);
+
+    const personExists = persons.some(person => person.id === id);
+    if (!personExists) {
+        console.log('Person not found, returning 404');
+        return res.status(404).json({ error: 'Person not found' });
+    }
+
+    persons = persons.filter(person => person.id !== id);
+    console.log('Person array after deletion:', persons);
     res.status(204).end();
 });
 
