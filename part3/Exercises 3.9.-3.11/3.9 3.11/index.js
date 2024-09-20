@@ -1,9 +1,11 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const morganBody = require('morgan-body')
 
 const app = express();
 morganBody(app);
+app.use(cors());
 
 let persons = [
     { id: 1, name: 'John Doe', "number": "040-123456" },
@@ -47,12 +49,6 @@ app.get('/', (req, res) => {
 app.post('/api/persons', (req, res) => {
     const body = req.body;
     console.log(body)
-
-    // if (!body.name || !body.number) {
-    //     return res.status(400).json({
-    //         error: 'Name or number missing'
-    //     })
-    // }
 
     const nameExists = persons.some(person => person.name === body.name);
     console.log("name exists",nameExists)
@@ -119,6 +115,8 @@ app.delete('/api/persons/:id', (req, res) => {
     res.status(204).end();
 });
 
-const PORT = 3015;
-app.listen(PORT);
-console.log(`Server running on port ${PORT} with the persons, exercise 3.7 to 3.8`)
+const PORT = process.env.PORT || 3015;
+app.listen(PORT), () => {
+    console.log(`Server running on port ${PORT} with the persons, exercise 3.7 to 3.8`)
+};
+
